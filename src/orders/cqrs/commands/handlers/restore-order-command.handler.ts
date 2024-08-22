@@ -10,7 +10,7 @@ export class RestoreOrderCommandHandler implements ICommandHandler<RestoreOrderC
   async execute(command: RestoreOrderCommandRequest): Promise<void> {
     const { orderId } = command;
 
-    const currOrder = await this.ordersService.findOne(orderId);
+    const currOrder = await this.ordersService.findOne(orderId, true);
 
     if (currOrder.isDeleted == 0) {
 

@@ -47,6 +47,7 @@ export class OrdersController {
     description: 'The order has been successfully created.',
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async create(@Body() createOrderDto: CreateOrderRequestDto) {
     const command = new CreateOrderCommandRequest(
       createOrderDto.description,
@@ -64,6 +65,7 @@ export class OrdersController {
     example: 1,
   })
   @ApiResponse({ status: 200, description: 'The order has been soft-deleted.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   async softDelete(@Param('id') id: number) {
     const command = new RemoveOrderCommandRequest(id);
@@ -78,6 +80,7 @@ export class OrdersController {
     example: 1,
   })
   @ApiResponse({ status: 200, description: 'The order has been restored.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   async restore(@Param('id') id: number) {
     const query = new RestoreOrderCommandRequest(id);
@@ -102,6 +105,7 @@ export class OrdersController {
     description: 'The order details.',
     type: OrderItemResponseDto,
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async findOne(
     @Param('id') id: number,
     @Query('includeDeleted') includeDeleted: string | boolean,
@@ -127,6 +131,7 @@ export class OrdersController {
     type: OrderItemResponseDto,
     isArray: true,
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async findAll(
     @Query('includeDeleted') includeDeleted: string | boolean,
   ): Promise<OrderItemResponseDto[]> {
@@ -164,6 +169,7 @@ export class OrdersController {
     description: 'The status of the order has been updated.',
   })
   @ApiResponse({ status: 404, description: 'Order not found.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async updateStatus(
     @Param('id') id: number,
     @Body() updateOrderStatusDto: UpdateOrderStatusRequestDto,

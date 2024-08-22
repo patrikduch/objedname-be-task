@@ -11,7 +11,7 @@ export class UpdateOrderStatusCommandHandler implements ICommandHandler<UpdateOr
   async execute(command: UpdateOrderStatusCommandRequest): Promise<void> {
     const { orderId, status } = command;
 
-    const order = await this.ordersService.findOne(orderId);
+    const order = await this.ordersService.findOne(orderId, true);
     if (!order) {
       throw new NotFoundException(`Order with ID ${orderId} not found.`);
     }
