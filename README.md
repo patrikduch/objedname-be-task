@@ -90,3 +90,21 @@ Nest is [MIT licensed](LICENSE).
 ```bash
 nest g mo orders
 ```
+
+
+## Third party libraries
+
+### Swagger 
+
+
+```bash
+@nestjs/swagger
+```
+
+```bash
+swagger-ui-express
+```
+
+
+
+
