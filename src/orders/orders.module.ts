@@ -9,11 +9,21 @@ import { GetOrderQueryHandler } from './cqrs/queries/handlers/get-order-query.ha
 import { GetOrdersQueryHandler } from './cqrs/queries/handlers/get-orders-query.handler';
 import { RemoveOrderCommandHandler } from './cqrs/commands/handlers/remove-order-command.handler';
 import { RestoreOrderCommandHandler } from './cqrs/commands/handlers/restore-order-command.handler';
+import { UpdateOrderStatusCommandHandler } from './cqrs/commands/handlers/update-order-status-command.handler';
+import { StatusValidationService } from './services/status-validation.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Order]), CqrsModule],
-    controllers: [OrdersController],
-    providers: [OrdersService, CreateOrderCommandHandler, GetOrderQueryHandler, GetOrdersQueryHandler, RemoveOrderCommandHandler, RestoreOrderCommandHandler]
-
+  imports: [TypeOrmModule.forFeature([Order]), CqrsModule],
+  controllers: [OrdersController],
+  providers: [
+    OrdersService,
+    StatusValidationService,
+    CreateOrderCommandHandler,
+    GetOrderQueryHandler,
+    GetOrdersQueryHandler,
+    RemoveOrderCommandHandler,
+    RestoreOrderCommandHandler,
+    UpdateOrderStatusCommandHandler,
+  ],
 })
 export class OrdersModule {}

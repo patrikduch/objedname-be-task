@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from '../entities/order.entity';
@@ -48,6 +48,17 @@ export class OrdersService {
     const order = await this.findOne(id, true);
     order.deletedAt = null;
     order.isDeleted = 0;
+    return this.orderRepository.save(order);
+  }
+
+  async updateStatus(id: number, status: string): Promise<Order> {
+    const order = await this.findOne(id); 
+
+    if (order.isDeleted) {
+      throw new BadRequestException('Cannot update a soft-deleted order.');
+    }
+
+    order.status = status;
     return this.orderRepository.save(order);
   }
 }

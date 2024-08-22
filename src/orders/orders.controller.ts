@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import {
@@ -27,6 +28,8 @@ import { GetOrdersQueryRequest } from './cqrs/queries/requests/get-orders-query.
 import { Order } from './entities/order.entity';
 import { RemoveOrderCommandRequest } from './cqrs/commands/requests/remove-order-command.request';
 import { RestoreOrderCommandRequest } from './cqrs/commands/requests/restore-order-command.request';
+import { UpdateOrderStatusRequestDto } from './dtos/requests/update-order-status-request.dto';
+import { UpdateOrderStatusCommandRequest } from './cqrs/commands/requests/update-order-status-command.query';
 
 @ApiTags('Orders')
 @Controller('Orders')
@@ -146,5 +149,29 @@ export class OrdersController {
     });
 
     return result;
+  }
+
+
+  @Put(':id/status')
+  @ApiOperation({ summary: 'Update the status of an order' })
+  @ApiParam({
+    name: 'id',
+    description: 'The ID of the order to update',
+    example: 1,
+  })
+  @ApiBody({ type: UpdateOrderStatusRequestDto })
+  @ApiResponse({
+    status: 200,
+    description: 'The status of the order has been updated.',
+  })
+  @ApiResponse({ status: 404, description: 'Order not found.' })
+  async updateStatus(
+    @Param('id') id: number,
+    @Body() updateOrderStatusDto: UpdateOrderStatusRequestDto,
+  ) {
+    const { status } = updateOrderStatusDto;
+    const command = new UpdateOrderStatusCommandRequest(id, status);
+
+    return this.commandBus.execute(command);
   }
 }
