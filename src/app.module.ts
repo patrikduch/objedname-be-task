@@ -16,10 +16,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     AuthModule,
     OrdersModule,
-    JwtModule.register({
-      secret: 'yourSecretKey',
-      signOptions: { expiresIn: '60m' },
-    }),
+   
   ],
   controllers: [],
   providers: [],

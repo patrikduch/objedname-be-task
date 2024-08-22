@@ -33,6 +33,6 @@ import { UserRepository } from './user.repository';
 
   ],
   controllers: [AuthController],
-  exports: [JwtStrategy, UserRepository],
+  exports: [JwtStrategy, UserRepository, JwtModule],
 })
 export class AuthModule {}
