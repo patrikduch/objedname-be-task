@@ -137,6 +137,13 @@ class-transformer
 ```
 
 
+### JWT
+
+@nestjs/passport passport passport-jwt @nestjs/jwt
+
+bcrypt
+
+
 
 ## Migrations
 

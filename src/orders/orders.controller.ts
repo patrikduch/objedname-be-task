@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOkResponse,
   ApiOperation,
@@ -21,11 +22,9 @@ import {
 import { CreateOrderRequestDto } from './dtos/requests/create-order-request.dto';
 import { CreateOrderCommandRequest } from './cqrs/commands/requests/create-order-command.request';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { OrdersService } from './services/orders.service';
 import { GetOrderQueryRequest } from './cqrs/queries/requests/get-order-query.request';
 import { OrderItemResponseDto } from './dtos/responses/order-item-response.dto.';
 import { GetOrdersQueryRequest } from './cqrs/queries/requests/get-orders-query.request';
-import { Order } from './entities/order.entity';
 import { RemoveOrderCommandRequest } from './cqrs/commands/requests/remove-order-command.request';
 import { RestoreOrderCommandRequest } from './cqrs/commands/requests/restore-order-command.request';
 import { UpdateOrderStatusRequestDto } from './dtos/requests/update-order-status-request.dto';
@@ -33,9 +32,9 @@ import { UpdateOrderStatusCommandRequest } from './cqrs/commands/requests/update
 
 @ApiTags('Orders')
 @Controller('Orders')
+@ApiBearerAuth('access-token')
 export class OrdersController {
   constructor(
-    private readonly ordersService: OrdersService,
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
