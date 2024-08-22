@@ -43,4 +43,11 @@ export class OrdersService {
     order.isDeleted = 1;
     return this.orderRepository.save(order);
   }
+
+  async restore(id: number): Promise<Order> {
+    const order = await this.findOne(id, true);
+    order.deletedAt = null;
+    order.isDeleted = 0;
+    return this.orderRepository.save(order);
+  }
 }

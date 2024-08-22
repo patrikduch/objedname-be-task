@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -25,6 +26,7 @@ import { OrderItemResponseDto } from './dtos/responses/order-item-response.dto.'
 import { GetOrdersQueryRequest } from './cqrs/queries/requests/get-orders-query.request';
 import { Order } from './entities/order.entity';
 import { RemoveOrderCommandRequest } from './cqrs/commands/requests/remove-order-command.request';
+import { RestoreOrderCommandRequest } from './cqrs/commands/requests/restore-order-command.request';
 
 @ApiTags('Orders')
 @Controller('Orders')
@@ -64,6 +66,20 @@ export class OrdersController {
   async softDelete(@Param('id') id: number) {
     const command = new RemoveOrderCommandRequest(id);
     return this.commandBus.execute(command);
+  }
+
+  @Patch(':id/restore')
+  @ApiOperation({ summary: 'Restore a soft-deleted order' })
+  @ApiParam({
+    name: 'id',
+    description: 'The ID of the order to restore',
+    example: 1,
+  })
+  @ApiResponse({ status: 200, description: 'The order has been restored.' })
+  @ApiResponse({ status: 404, description: 'Order not found.' })
+  async restore(@Param('id') id: number) {
+    const query = new RestoreOrderCommandRequest(id);
+    return this.commandBus.execute(query);
   }
 
   @Get(':id')
