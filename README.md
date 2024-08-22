@@ -107,4 +107,31 @@ swagger-ui-express
 
 
 
+### TypeORM
+
+```bash
+ @nestjs/typeorm
+```
+
+```bash
+typeorm
+```
+
+```bash
+pg
+```
+
+## Migrations
+
+### Create migration based on database model
+
+yarn run migration:generate ./src/migrations/initial
+
+
+### Run created migrations
+
+yarn run migrations:run
+
+
+
 
