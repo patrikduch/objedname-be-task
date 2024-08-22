@@ -121,6 +121,13 @@ typeorm
 pg
 ```
 
+
+### CQRS
+
+@nestjs/cqrs
+
+
+
 ## Migrations
 
 ### Create migration based on database model
@@ -137,6 +144,8 @@ yarn run migration:generate ./src/migrations/initial
 ```bash
 yarn run migrations:run
 ```
+
+
 
 
 
