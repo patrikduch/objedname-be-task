@@ -30,4 +30,10 @@ export class OrdersService {
     }
     return order;
   }
+
+  async findAll(includeDeleted: boolean = false): Promise<Order[]> {
+    const whereClause = includeDeleted ? {} : { isDeleted: 0 };
+    this.logger.debug(`Executing findAll with whereClause: ${JSON.stringify(whereClause)}`);
+    return this.orderRepository.find({ where: whereClause });
+  }
 }
