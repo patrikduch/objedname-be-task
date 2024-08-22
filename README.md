@@ -128,8 +128,15 @@ pg
 
 ### Validation pipes
 
+```bash
 class-validator
+```
+
+```bash
 class-transformer
+```
+
+
 
 ## Migrations
 
