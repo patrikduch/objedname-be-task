@@ -36,4 +36,11 @@ export class OrdersService {
     this.logger.debug(`Executing findAll with whereClause: ${JSON.stringify(whereClause)}`);
     return this.orderRepository.find({ where: whereClause });
   }
+
+  async softDelete(id: number): Promise<Order> {
+    const order = await this.findOne(id, true); 
+    order.deletedAt = new Date();
+    order.isDeleted = 1;
+    return this.orderRepository.save(order);
+  }
 }

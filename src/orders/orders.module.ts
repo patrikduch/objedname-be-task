@@ -7,11 +7,12 @@ import { OrdersService } from './services/orders.service';
 import { CreateOrderCommandHandler } from './cqrs/commands/handlers/create-order-command.handler';
 import { GetOrderQueryHandler } from './cqrs/queries/handlers/get-order-query.handler';
 import { GetOrdersQueryHandler } from './cqrs/queries/handlers/get-orders-query.handler';
+import { RemoveOrderCommandHandler } from './cqrs/commands/handlers/remove-order-command.handler';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Order]), CqrsModule],
     controllers: [OrdersController],
-    providers: [OrdersService, CreateOrderCommandHandler, GetOrderQueryHandler, GetOrdersQueryHandler]
+    providers: [OrdersService, CreateOrderCommandHandler, GetOrderQueryHandler, GetOrdersQueryHandler, RemoveOrderCommandHandler]
 
 })
 export class OrdersModule {}
