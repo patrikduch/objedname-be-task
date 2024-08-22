@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15 # Use the official PostgreSQL image with a specific version
+    container_name: objedname_db
+    restart: unless-stopped
+    env_file:
+      - ./env/dbs/postgres.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - objedname_network
+
+volumes:
+  postgres_data:
+
+networks:
+  objedname_network:
