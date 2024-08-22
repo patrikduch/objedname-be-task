@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { ApiTags, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { LoginRequestDto } from './dtos/requests/login-request.dto';
 import { RegisterUserRequestDto } from './dtos/requests/register-user-request.dto';
@@ -15,6 +15,7 @@ export class AuthController {
     private readonly commandBus: CommandBus,
   ) {}
 
+  @HttpCode(200)
   @Post('login')
   @ApiOperation({ summary: 'Standard login with plain username and password' })
   @ApiBody({
@@ -22,9 +23,9 @@ export class AuthController {
     type: LoginRequestDto,
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'JWT token generated successfully.',
-    type: LoginResponseDto, // Specify the response type here
+    type: LoginResponseDto,
   })
   @ApiResponse({
     status: 401,

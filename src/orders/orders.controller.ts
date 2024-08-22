@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -116,6 +117,8 @@ export class OrdersController {
     const query = new GetOrderQueryRequest(id, includeDeletedBoolean);
     return this.queryBus.execute(query);
   }
+
+  @HttpCode(200)
   @Get()
   @ApiOperation({ summary: 'Retrieve a list of orders' })
   @ApiQuery({
