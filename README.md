@@ -126,7 +126,10 @@ pg
 
 @nestjs/cqrs
 
+### Validation pipes
 
+class-validator
+class-transformer
 
 ## Migrations
 
