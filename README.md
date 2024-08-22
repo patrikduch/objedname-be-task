@@ -125,12 +125,18 @@ pg
 
 ### Create migration based on database model
 
+
+```bash
 yarn run migration:generate ./src/migrations/initial
+```
 
 
 ### Run created migrations
 
+
+```bash
 yarn run migrations:run
+```
 
 
 
